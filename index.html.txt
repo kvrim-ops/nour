@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى نور عيني</title>
+    <style>
+        :root {
+            --main-color: #800020; /* برغاندي */
+            --accent-color: #ffb6c1; /* بينك */
+            --bg-color: #fff5f7;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--main-color);
+            text-align: center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 2px solid var(--accent-color);
+            margin: 10px;
+        }
+        input {
+            padding: 12px;
+            width: 80%;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+        button {
+            background-color: var(--main-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #a00028; }
+        .hidden { display: none; }
+        .fade-in { animation: fadeIn 1.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .gallery img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; border: 2px solid var(--accent-color); }
+        
+        .timer { font-size: 18px; font-weight: bold; margin: 20px 0; color: #d81b60; line-height: 1.6; }
+        .message { line-height: 1.8; text-align: justify; font-size: 16px; white-space: pre-wrap; background: #fff0f3; padding: 15px; border-radius: 15px; }
+        .heart { color: red; font-size: 24px; animation: beat 1s infinite; display: inline-block; }
+        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+    </style>
+</head>
+<body>
+
+    <div id="step1" class="container">
+        <h2>أهلاً يا نورتي.. ❤️</h2>
+        <p>اكتبي كلمة السر عشان تدخلي</p>
+        <input type="text" id="passInput" placeholder="Koki&Noni">
+        <br>
+        <button onclick="checkPass()">دخول</button>
+    </div>
+
+    <div id="step2" class="container hidden fade-in">
+        <h2 style="color: var(--main-color);">بحبك ❤️</h2>
+        <p>اكتبي التاريخ اللي اعترفنا فيه لبعض</p>
+        <p style="font-size: 13px;">(يوم/شهر/سنة)</p>
+        <input type="text" id="dateInput" placeholder="11/01/2026">
+        <br>
+        <button onclick="checkDate()">فتح المفاجأة</button>
+    </div>
+
+    <div id="step3" class="container hidden fade-in">
+        <button id="playBtn" onclick="playMusic()">اضغطي هنا لسماع أغنيتنا 🎶</button>
+        <audio id="bgMusic" loop>
+            <source src="https://files.catbox.moe/tdqhmp.m4a" type="audio/mp4">
+        </audio>
+
+        <div class="timer" id="timer">بيحسب الوقت...</div>
+
+        <div class="gallery">
+            <img src="https://i.postimg.cc/J06FQtbs/71425dda-fdf7-41e6-8e4a-f6e3b4a3c75d.jpg" alt="نور">
+            <img src="https://i.postimg.cc/brNMb12H/2c298ee7-c25c-495b-828a-4c20086bdd1e.jpg" alt="نور">
+            <img src="https://i.postimg.cc/FFDwvC2d/IMG-9880.png" alt="نور">
+            <img src="https://i.postimg.cc/pVq3vcgm/IMG-9879.jpg" alt="نور">
+            <img src="https://i.postimg.cc/MHK4R1jW/IMG-9881.jpg" alt="نور">
+        </div>
+
+        <div class="message">
+نور انتي عارفه اني بحبك اويي بجد ووالله كلام الدنيا كله مش هيكفيكي انا بحبك اوي والله ومش متخيله انا بحبك قد ايه يا نور عيني والله
+ربنا يخليكي ليا وميحرمنيش منك يارب ونفضل سوا طول العمر ونعيش الدنيا كلها سوا ونفضل بنفس الشغف ونفس حبنا ده طول العمر
+انتي حرفيا كل الحلو ال فحياتي مش متخيله حياتي اتغيرت ونورت ازاي اما انتي دخلتيها والله خليتي ليا امل اكمل واعافر علشان ابقا معاكي خليتيني مفيش حاجه تيجي عليا اسمها زعل ودايما الدنيا بتضحكلي والله انتي نعمه بجد وبجد يا نور مش ببالغ دي اقل حاجه اقولها عليكي يا نوارتي والله
+بحبك يا نونتي ❤️❤️💋
+        </div>
+        
+        <h3 style="margin-top: 30px;">بحبك يا نور عيني <span class="heart">❤</span></h3>
+    </div>
+
+    <script>
+        function checkPass() {
+            const pass = document.getElementById('passInput').value;
+            if(pass === "Koki&Noni") {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+            } else {
+                alert("كلمة السر غلط يا نونتي! ركزي 😂");
+            }
+        }
+
+        function checkDate() {
+            const date = document.getElementById('dateInput').value;
+            if(date === "11/01/2026") {
+                document.getElementById('step2').classList.add('hidden');
+                document.getElementById('step3').classList.remove('hidden');
+                startTimer();
+            } else {
+                alert("التاريخ غلط! افتكري اليوم اللي حياتي نورت فيه ❤️");
+            }
+        }
+
+        function playMusic() {
+            const music = document.getElementById('bgMusic');
+            music.play();
+            document.getElementById('playBtn').innerText = "شغالة الآن.. 🎵";
+        }
+
+        function startTimer() {
+            const startDate = new Date("2026-01-11T00:00:00").getTime();
+            setInterval(function() {
+                const now = new Date().getTime();
+                const diff = now - startDate;
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById('timer').innerHTML = `بقالنا مع بعض حبايب: <br> ${days} يوم و ${hours} ساعة و ${mins} دقيقة و ${secs} ثانية`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
