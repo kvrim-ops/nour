@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى نور عيني</title>
+    <title>إلى نورتي ❤️</title>
     <style>
         :root {
             --main-color: #800020; /* برغاندي */
@@ -13,144 +13,185 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
-            color: var(--main-color);
-            text-align: center;
             margin: 0;
+            overflow-x: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
+        /* قلوب الخلفية */
+        .heart-bg {
+            position: fixed;
+            top: -10%;
+            color: rgba(216, 27, 96, 0.2);
+            font-size: 24px;
+            user-select: none;
+            z-index: -1;
+            animation: move linear infinite;
+        }
+        @keyframes move {
+            to { transform: translateY(110vh); }
+        }
+        
         .container {
             width: 90%;
-            max-width: 500px;
-            background: white;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.9);
             padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             border: 2px solid var(--accent-color);
-            margin: 10px;
-        }
-        input {
-            padding: 12px;
-            width: 80%;
-            border: 2px solid var(--accent-color);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            outline: none;
+            z-index: 10;
             text-align: center;
-            font-size: 16px;
+        }
+        
+        input {
+            padding: 12px; width: 85%; border: 2px solid var(--accent-color);
+            border-radius: 10px; margin-bottom: 20px; outline: none; text-align: center; font-size: 16px;
         }
         button {
-            background-color: var(--main-color);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
+            background-color: var(--main-color); color: white; border: none;
+            padding: 12px 30px; border-radius: 10px; cursor: pointer; font-size: 16px; transition: 0.3s;
         }
-        button:hover { background-color: #a00028; }
+        
+        /* الصور بتقلب */
+        .slider {
+            width: 100%; height: 400px; position: relative; overflow: hidden; border-radius: 15px; margin: 15px 0;
+        }
+        .slider img {
+            width: 100%; height: 100%; object-fit: cover; position: absolute;
+            opacity: 0; transition: opacity 1s ease-in-out;
+        }
+        .slider img.active { opacity: 1; }
+
         .hidden { display: none; }
-        .fade-in { animation: fadeIn 1.5s; }
+        .fade-in { animation: fadeIn 1s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
-        .gallery img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; border: 2px solid var(--accent-color); }
-        
-        .timer { font-size: 18px; font-weight: bold; margin: 20px 0; color: #d81b60; line-height: 1.6; }
-        .message { line-height: 1.8; text-align: justify; font-size: 16px; white-space: pre-wrap; background: #fff0f3; padding: 15px; border-radius: 15px; }
-        .heart { color: red; font-size: 24px; animation: beat 1s infinite; display: inline-block; }
-        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+        .message-box {
+            line-height: 1.8; text-align: right; font-size: 16px; padding: 15px;
+            background: white; border-radius: 15px; border-right: 5px solid var(--main-color);
+        }
+        .timer { font-size: 18px; font-weight: bold; margin: 15px 0; color: var(--main-color); }
     </style>
 </head>
 <body>
 
-    <div id="step1" class="container">
-        <h2>أهلاً يا نورتي.. ❤️</h2>
-        <p>اكتبي كلمة السر عشان تدخلي</p>
-        <input type="text" id="passInput" placeholder="Koki&Noni">
-        <br>
-        <button onclick="checkPass()">دخول</button>
+<div id="hearts-container"></div>
+
+<!-- خطوة 1 -->
+<div id="step1" class="container">
+    <h2>وحشتيني يا نورتي ❤️</h2>
+    <p>اكتبي الباسوورد بتاعنا</p>
+    <input type="text" id="passInput" placeholder="Koki&Noni">
+    <button onclick="checkPass()">دخول</button>
+</div>
+
+<!-- خطوة 2 -->
+<div id="step2" class="container hidden fade-in">
+    <h2>فاكرة اليوم ده؟ ❤️</h2>
+    <p>تاريخ اعترافنا لبعض</p>
+    <input type="text" id="dateInput" placeholder="11/01/2026">
+    <button onclick="checkDate()">أنا جاهزة</button>
+</div>
+
+<!-- خطوة 3 (الصور والعداد) -->
+<div id="step3" class="container hidden fade-in">
+    <button id="playBtn" onclick="playMusic()">شغلي الأغنية يا روحي 🎶</button>
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/tdqhmp.m4a" type="audio/mp4">
+    </audio>
+
+    <div class="timer" id="timer"></div>
+
+    <div class="slider" id="slider">
+        <img src="https://i.postimg.cc/J06FQtbs/71425dda-fdf7-41e6-8e4a-f6e3b4a3c75d.jpg" class="active">
+        <img src="https://i.postimg.cc/brNMb12H/2c298ee7-c25c-495b-828a-4c20086bdd1e.jpg">
+        <img src="https://i.postimg.cc/FFDwvC2d/IMG-9880.png">
+        <img src="https://i.postimg.cc/pVq3vcgm/IMG-9879.jpg">
+        <img src="https://i.postimg.cc/MHK4R1jW/IMG-9881.jpg">
     </div>
 
-    <div id="step2" class="container hidden fade-in">
-        <h2 style="color: var(--main-color);">بحبك ❤️</h2>
-        <p>اكتبي التاريخ اللي اعترفنا فيه لبعض</p>
-        <p style="font-size: 13px;">(يوم/شهر/سنة)</p>
-        <input type="text" id="dateInput" placeholder="11/01/2026">
-        <br>
-        <button onclick="checkDate()">فتح المفاجأة</button>
-    </div>
+    <button onclick="showMsg()">اضغطي هنا لرسالتي ليكي ❤️</button>
+</div>
 
-    <div id="step3" class="container hidden fade-in">
-        <button id="playBtn" onclick="playMusic()">اضغطي هنا لسماع أغنيتنا 🎶</button>
-        <audio id="bgMusic" loop>
-            <source src="https://files.catbox.moe/tdqhmp.m4a" type="audio/mp4">
-        </audio>
-
-        <div class="timer" id="timer">بيحسب الوقت...</div>
-
-        <div class="gallery">
-            <img src="https://i.postimg.cc/J06FQtbs/71425dda-fdf7-41e6-8e4a-f6e3b4a3c75d.jpg" alt="نور">
-            <img src="https://i.postimg.cc/brNMb12H/2c298ee7-c25c-495b-828a-4c20086bdd1e.jpg" alt="نور">
-            <img src="https://i.postimg.cc/FFDwvC2d/IMG-9880.png" alt="نور">
-            <img src="https://i.postimg.cc/pVq3vcgm/IMG-9879.jpg" alt="نور">
-            <img src="https://i.postimg.cc/MHK4R1jW/IMG-9881.jpg" alt="نور">
-        </div>
-
-        <div class="message">
+<!-- خطوة 4 (الرسالة) -->
+<div id="step4" class="container hidden fade-in">
+    <div class="message-box">
 نور انتي عارفه اني بحبك اويي بجد ووالله كلام الدنيا كله مش هيكفيكي انا بحبك اوي والله ومش متخيله انا بحبك قد ايه يا نور عيني والله
-ربنا يخليكي ليا وميحرمنيش منك يارب ونفضل سوا طول العمر ونعيش الدنيا كلها سوا ونفضل بنفس الشغف ونفس حبنا ده طول العمر
-انتي حرفيا كل الحلو ال فحياتي مش متخيله حياتي اتغيرت ونورت ازاي اما انتي دخلتيها والله خليتي ليا امل اكمل واعافر علشان ابقا معاكي خليتيني مفيش حاجه تيجي عليا اسمها زعل ودايما الدنيا بتضحكلي والله انتي نعمه بجد وبجد يا نور مش ببالغ دي اقل حاجه اقولها عليكي يا نوارتي والله
-بحبك يا نونتي ❤️❤️💋
-        </div>
-        
-        <h3 style="margin-top: 30px;">بحبك يا نور عيني <span class="heart">❤</span></h3>
+ربنا يخليكي ليا وميحرمنيش منك يارب ونفضل سوا طول العمر ونعيش الدنيا كلها سوا ونفضل بنفس الشغف ونفس حبنا ده طول العمر...
+<br><br>
+انتي حرفيا كل الحلو ال فحياتي... بحبك يا نونتي ❤️💋
     </div>
+    <h3 style="color: var(--main-color);">بحبك يا نور عيني ❤️</h3>
+    <button onclick="backToPhotos()">رجوع للصور</button>
+</div>
 
-    <script>
-        function checkPass() {
-            const pass = document.getElementById('passInput').value;
-            if(pass === "Koki&Noni") {
-                document.getElementById('step1').classList.add('hidden');
-                document.getElementById('step2').classList.remove('hidden');
-            } else {
-                alert("كلمة السر غلط يا نونتي! ركزي 😂");
-            }
-        }
+<script>
+    // إنشاء قلوب عشوائية
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart-bg');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+        document.getElementById('hearts-container').appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 5000);
+    }
+    setInterval(createHeart, 300);
 
-        function checkDate() {
-            const date = document.getElementById('dateInput').value;
-            if(date === "11/01/2026") {
-                document.getElementById('step2').classList.add('hidden');
-                document.getElementById('step3').classList.remove('hidden');
-                startTimer();
-            } else {
-                alert("التاريخ غلط! افتكري اليوم اللي حياتي نورت فيه ❤️");
-            }
-        }
+    // الصور بتبدل
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('#slider img');
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+    setInterval(nextSlide, 3000);
 
-        function playMusic() {
-            const music = document.getElementById('bgMusic');
-            music.play();
-            document.getElementById('playBtn').innerText = "شغالة الآن.. 🎵";
-        }
+    function checkPass() {
+        if(document.getElementById('passInput').value === "Koki&Noni") {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+        } else { alert("كلمة السر غلط يا نوارتي!"); }
+    }
 
-        function startTimer() {
-            const startDate = new Date("2026-01-11T00:00:00").getTime();
-            setInterval(function() {
-                const now = new Date().getTime();
-                const diff = now - startDate;
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const secs = Math.floor((diff % (1000 * 60)) / 1000);
-                document.getElementById('timer').innerHTML = `بقالنا مع بعض حبايب: <br> ${days} يوم و ${hours} ساعة و ${mins} دقيقة و ${secs} ثانية`;
-            }, 1000);
-        }
-    </script>
+    function checkDate() {
+        if(document.getElementById('dateInput').value === "11/01/2026") {
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+            startTimer();
+        } else { alert("التاريخ غلط!"); }
+    }
+
+    function showMsg() {
+        document.getElementById('step3').classList.add('hidden');
+        document.getElementById('step4').classList.remove('hidden');
+    }
+    function backToPhotos() {
+        document.getElementById('step4').classList.add('hidden');
+        document.getElementById('step3').classList.remove('hidden');
+    }
+
+    function playMusic() {
+        document.getElementById('bgMusic').play();
+        document.getElementById('playBtn').innerText = "أغنيتنا شغالة.. 🎵";
+    }
+
+    function startTimer() {
+        const startDate = new Date("2026-01-11T00:00:00").getTime();
+        setInterval(function() {
+            const now = new Date().getTime();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('timer').innerHTML = `بقالنا سوا حبايب: ${days} يوم و ${hours} ساعة`;
+        }, 1000);
+    }
+</script>
 </body>
 </html>
